@@ -1,0 +1,13 @@
+<!-- applicationCTX.xml -->
+<beans id="calculator" class = "com.javalec.ex.Calculator">
+    <!-- MyCalculator 클래스에 대한 객체 생성 -->
+    <!-- id는 변수설정한 것, class는 패키지.클래스이름 -->
+    <bean id="myCalculator" class="com.javalec.ex.MyCalculator">
+        <!-- setter로 초기화하는 필드는 property로 설정-->
+        <property name="calculator">
+            <ref bean="calculator" />
+        </property>
+        <property name="firstNum" value="10"></property>
+        <property name="secondNum" value="2"></property>
+    </bean>
+</beans>
