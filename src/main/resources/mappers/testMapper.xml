@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardMapper">
+	
+	<select id="login" resultType="BoardVO">
+		SELECT id, pw , name, phone
+		  FROM board_by
+		 WHERE id = #{id}
+		   AND pw = #{pw}   
+	</select>
+	
+	<select id="viewMember" resultType="com.spring.test.domain.BoardVO">
+		SELECT id as id ,
+			   name as name,
+			   phone as phone ,
+			   regdate as regdate
+		  FROM board_by
+		 WHERE id = #{id}
+		   AND pw = #{pw}   
+	</select>
+	
+	<select id="getBoardList" resultType="BoardVO">
+		SELECT id,pw,name,phone,reg_date
+		FROM board_by
+		ORDER BY id DESC
+	</select>
+	
+	<select id="getPersonalContent" resultType="BoardVO">
+		<![CDATA[
+			SELECT *
+			FROM board_by
+			WHERE id = #{id}
+		]]>
+	</select>
+	
+	<select id="findIdBoard" resultType="BoardVO">
+		<![CDATA[
+			SELECT id as id, name as name
+			FROM board_by
+			WHERE name = #{name} 
+			AND phone = #{phone};
+		]]>
+	</select>
+	
+	<select id="findPwBoard" resultType="BoardVO">
+		<![CDATA[
+			SELECT pw as pw
+			FROM board_by
+			WHERE id = #{id}
+				  AND name = #{name}
+				  AND phone = #{phone};
+		]]>
+	</select>
+	
+	<select id="insertBoard">
+		<![CDATA[
+		INSERT INTO board_by(id,pw,name,phone,reg_date)
+		VALUES(#{id}, #{pw}, #{name}, #{phone}, now())
+		]]>
+	</select>
+	
+	<update id="updateBoard">
+		<![CDATA[
+		UPDATE board_by SET
+		pw = #{pw},
+		name = #{name},
+		phone = #{phone}
+		WHERE id = #{id}
+		]]>
+	</update>
+
+	<delete id="deleteBoard">
+		<![CDATA[
+		DELETE FROM board_by
+		WHERE id = #{id}
+		]]>
+	</delete>
+</mapper>
